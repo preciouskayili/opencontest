@@ -1,0 +1,224 @@
+@import url("https://fonts.googleapis.com/css2?family=Epilogue:wght@400;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap");
+
+/* ========== Style reset ========= */
+* {
+  font-family: "Epilogue", sans-serif;
+}
+
+.mont {
+  font-family: "Montserrat", sans-serif !important;
+}
+
+button,
+a {
+  font-family: "Montserrat", sans-serif !important;
+  text-transform: capitalize !important;
+}
+
+/* Input */
+.remove-outline,
+textarea:hover,
+input:hover,
+textarea:active,
+input:active,
+textarea:focus,
+input:focus,
+button:focus,
+button:active,
+button:hover,
+label:focus,
+.btn:active,
+.btn.active,
+select:hover,
+select:active,
+select:focus {
+  outline: 0px !important;
+  -webkit-appearance: none;
+  border: 0 !important;
+  box-shadow: none !important;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: rgb(157, 157, 157, 0.3);
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: rgb(157, 157, 157, 0.5);
+  border-radius: 1rem;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: rgb(157, 157, 157, 0.02);
+  border-radius: 1rem;
+}
+
+/* ========== Hero Section =========== */
+
+.bg {
+  background: linear-gradient(
+      to bottom right,
+      rgba(0, 0, 0, 0.4),
+      rgba(0, 0, 0, 0.4)
+    ),
+    url(/images/bg.jpg);
+  background-position: center;
+  background-size: cover;
+}
+
+header {
+  min-height: 95vh;
+}
+
+/* =============== Tags =========== */
+
+.tagcloud {
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #fff;
+}
+
+.navbar {
+  transition: all ease-in 0.1s;
+}
+
+.tagcloud {
+  text-transform: uppercase;
+  display: inline-block;
+  padding: 4px 10px;
+  margin-bottom: 7px;
+  margin-right: 4px;
+  border-radius: 4px;
+  font-size: 11px;
+}
+.tagcloud:hover {
+  border: 1px solid #000;
+  background-color: #fff;
+  color: #000;
+}
+
+/* ====== Tags Dark Mode ======== */
+
+.tagcloud-dark {
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  color: #000;
+}
+
+.tagcloud-dark {
+  text-transform: uppercase;
+  display: inline-block;
+  padding: 4px 10px;
+  margin-bottom: 7px;
+  margin-right: 4px;
+  border-radius: 4px;
+  font-size: 11px;
+}
+.tagcloud-dark:hover {
+  border: 1px solid #fff;
+  background-color: #000;
+  color: #fff;
+}
+
+.gloom-dark {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+/* Navbar */
+
+.nav-blur {
+  backdrop-filter: blur(2rem);
+}
+
+.navbar-lighten {
+  background-color: rgba(255, 255, 255, 0.6);
+}
+
+::placeholder {
+  color: #575757 !important;
+}
+
+@keyframes live {
+  0% {
+    background-color: #fff;
+  }
+  50% {
+    background-color: #fff;
+  }
+  100.00% {
+    background-color: #ff4848;
+  }
+}
+
+.live {
+  animation: live 2s infinite !important;
+}
+
+.search {
+  width: 30rem;
+}
+@media (min-width: 1200px) {
+  .search {
+    width: 10rem;
+  }
+}
+
+.banner-image {
+  height: 100%;
+  overflow: hidden;
+  background-image: linear-gradient(
+      to right bottom,
+      rgba(0, 0, 0, 0.5),
+      rgba(0, 0, 0, 0.5)
+    ),
+    url(/images/drop.png);
+  background-position: center center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  overflow: hidden;
+}
+
+.user-form {
+  height: 3.2rem;
+  background-color: rgba(0, 0, 0, 0.1) !important;
+}
+
+/* ==================   Sidebar  ===================== */
+.sidenav {
+  width: auto;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(2rem);
+  position: absolute;
+  min-height: 100%;
+  padding: 0 30px;
+  display: none;
+  overflow-x: hidden;
+  transition: all 0.3s;
+  z-index: 1;
+  overflow-y: auto;
+}
+
+.sidenav.active {
+  right: 0;
+  display: block;
+  overflow-x: hidden;
+}
+
+.contestant:hover {
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 0.5rem;
+  cursor: pointer;
+}
+
+.contestant.active {
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 0.5rem;
+  cursor: pointer;
+}
