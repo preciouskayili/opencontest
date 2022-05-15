@@ -1,8 +1,12 @@
-import express from "express";
-import mongoose from "mongoose";
-import morgan from "morgan";
-import cors from "cors";
-import users from "./routes/api/users";
+const express = require("express");
+const mongoose = require("mongoose");
+const morgan = require("morgan");
+const cors = require("cors");
+
+// Routes
+const auth = require("./routes/api/auth");
+const users = require("./routes/api/users");
+const contest = require("./routes/api/contest");
 
 require("dotenv/config");
 
@@ -15,15 +19,19 @@ app.use(cors());
 app.use(express.json());
 app.use(morgan("dev"));
 
+// Routes
+app.use("/api/contest", contest);
+app.use("/api/user", users);
+app.use("/api/auth", auth);
+
 app.use((req, res, next) => {
   res.locals.path = req.path;
   next();
 });
 
-// Routes
-app.use("/api/user", users);
+// Index Route
 app.get("/", (req, res) => {
-  res.send("Hello World!");
+  res.status(200).json({ msg: "Welcome to the index" });
 });
 
 // Connect to DB
@@ -41,5 +49,5 @@ mongoose
 
 // 404
 app.use((req, res) => {
-  res.status(404).send("404");
+  res.status(404).json({ msg: "Route not found" });
 });

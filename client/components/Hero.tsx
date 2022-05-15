@@ -31,11 +31,11 @@ const Hero = () => {
               flexDirection: "column",
             }}
           >
-            <h5 className="fw-bold fs-3 text-light">
+            <h5 className="fw-bold fs-3 text-gradient">
               Create, Compete, Participate
             </h5>
             <hr className="w-25 bg-light rounded-5" style={{ height: "5px" }} />
-            <h1 className="display-1 fw-bold text-white pt-4">
+            <h1 className="display-1 fw-bold text-white pt-4 text-gradient">
               The Open <br /> Voting System
             </h1>
             <div className="pt-4">

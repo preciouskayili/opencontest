@@ -1,4 +1,6 @@
-const Vote = () => {
+import React from "react";
+
+const Vote: React.FC = () => {
   return (
     <div className="card bg-light">
       <div className="card-body d-flex" style={{ alignItems: "center" }}>

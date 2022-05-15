@@ -1,17 +1,20 @@
+import { useContext } from "react";
+import { ToggleContext } from "../ToggleContext";
 import Image from "next/image";
+
 const ProfileDetails = () => {
+  const toggle = useContext(ToggleContext);
   return (
     <div className="mt-5">
       <div className="d-flex" style={{ justifyContent: "center" }}>
         <Image
-          src="/images/profile.webp"
+          src="/profile.webp"
           className="rounded-circle img-responsive flex-center"
           alt="Black and White Portrait of a Man"
           loading="lazy"
           height="150px"
           width="150px"
           objectFit="cover"
-          placeholder="blur"
         />
       </div>
 
@@ -21,37 +24,39 @@ const ProfileDetails = () => {
 
       <div
         className="votes card shadow-lg text-center"
-        style={{ justifyContent: "center" }}
+        style={{ justifyContent: "center", alignItems: "center" }}
       >
         <div className="card-body d-flex mt-1" style={{ alignItems: "center" }}>
-          <p className="me-5 fw-bold text-dark fs-5">
+          <p className="fw-bold text-dark fs-5 me-5">
             4k
             <br />
-            <small className="fs-6" style={{ fontWeight: "normal" }}>
+            <small style={{ fontSize: "15px", fontWeight: "normal" }}>
               Contests
             </small>
           </p>
-          <div className="vl"></div>
-          <p className="me-5 fw-bold text-dark fs-5">
+
+          <p className="fw-bold text-dark fs-5 me-5">
             10k
             <br />
-            <small className="fs-6" style={{ fontWeight: "normal" }}>
+            <small style={{ fontSize: "15px", fontWeight: "normal" }}>
               Votes
             </small>
           </p>
-          <p className="me-5 fw-bold text-dark fs-5">
+
+          <p className="fw-bold text-dark fs-5">
             35
             <br />
-            <small className="fs-6" style={{ fontWeight: "normal" }}>
+            <small style={{ fontSize: "15px", fontWeight: "normal" }}>
               Tags
             </small>
           </p>
         </div>
-        <div className="card-footer bg-dark">
-          <p className="text-center text-light mt-2">
-            preciouskayili@gmail.com
-          </p>
-        </div>
+        <button
+          className="btn btn-dark col-md-12 w-100"
+          onClick={() => toggle?.toggle}
+        >
+          Start Contest
+        </button>
       </div>
     </div>
   );

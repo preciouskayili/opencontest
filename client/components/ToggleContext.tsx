@@ -1,12 +1,19 @@
-import { useState, createContext } from "react";
+import { createContext, useState } from "react";
+import { IToggle } from "./@types/toggle";
 
-export const ToggleContext = createContext();
+const defaultState = {
+  isToggled: true,
+};
+
+export const ToggleContext = createContext<IToggle | null>(defaultState);
 
 export const ToggleProvider = (props: any) => {
-  const [isToggled, setIsToggled] = useState(true);
-
+  const [isToggled, setIsToggled] = useState(defaultState.isToggled);
+  const toggle = (): void => {
+    setIsToggled(!isToggled);
+  };
   return (
-    <ToggleContext.Provider value={[isToggled, setIsToggled]}>
+    <ToggleContext.Provider value={{ isToggled, toggle }}>
       {props.children}
     </ToggleContext.Provider>
   );

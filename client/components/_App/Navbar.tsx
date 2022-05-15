@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
-const Navbar = () => {
+const Navbar: React.FC = () => {
   let navClass: string =
     "navbar container-fluid navbar-expand-lg shadow-none sticky-top";
 

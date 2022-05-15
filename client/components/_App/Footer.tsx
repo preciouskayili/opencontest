@@ -1,5 +1,5 @@
 import Link from "next/link";
-const Footer = () => {
+const Footer: React.FC = () => {
   return (
     <>
       {/* Footer */}
@@ -11,7 +11,7 @@ const Footer = () => {
           <div className="row my-auto mt-3">
             {/*Grid column*/}
             <div className="col-lg-6 col-md-12 mb-md-0">
-              <h5 className="fw-bold text-white fs-3">Open Contest.</h5>
+              <h5 className="fw-bold text-gradient fs-3">Open Contest.</h5>
               <p className="pt-4 text-light">
                 Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iste
                 atque ea quis molestias. Fugiat pariatur maxime quis culpa
@@ -22,7 +22,7 @@ const Footer = () => {
 
             {/*Grid column*/}
             <div className="col-lg-6 col-md-12 mb-md-0">
-              <h5 className="fw-bold text-white fs-3">Tags</h5>
+              <h5 className="fw-bold text-gradient fs-3">Tags</h5>
 
               <div className="pt-4">
                 <Link href="/openvoting">
@@ -46,12 +46,12 @@ const Footer = () => {
         {/* Grid container */}
         {/* Copyright */}
         <div
-          className="text-center p-3"
+          className="text-center p-2"
           style={{
             backgroundColor: "rgba(255, 255, 255, 0.02)",
           }}
         >
-          <p className="text-white mt-3">
+          <p className="text-white pt-3">
             &copy; 2022 | {"All Right's Reserved by "}
             <a
               className="text-light"

@@ -1,5 +1,5 @@
 import Link from "next/link";
-const Navbar = () => {
+const Navbar: React.FC = () => {
   return (
     <>
       {/* Navbar */}
@@ -34,7 +34,7 @@ const Navbar = () => {
                     type="text"
                     id="form1"
                     placeholder="Search"
-                    className="form-control border-0 search"
+                    className="form-control border-0 remove-outline search"
                     style={{
                       backgroundColor: "rgba(255, 255, 255, 0.5)",
                       color: "#fff",
@@ -90,7 +90,7 @@ const Navbar = () => {
                   aria-labelledby="navbarDropdownMenuAvatar"
                 >
                   <li>
-                    <Link href="/">
+                    <Link href="/profile/1">
                       <a className="dropdown-item">My profile</a>
                     </Link>
                   </li>

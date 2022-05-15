@@ -1,8 +1,9 @@
-import { useContext } from "react";
+import React, { useContext } from "react";
 import { ToggleContext } from "../ToggleContext";
 
-const ContestInfo = () => {
-  const [isToggled, setIsToggled] = useContext(ToggleContext);
+const ContestInfo: React.FC = () => {
+  const toggle = useContext(ToggleContext);
+
   return (
     <>
       <div
@@ -55,12 +56,7 @@ const ContestInfo = () => {
             </div>
           </div>
         </div>
-        <button
-          onClick={() => {
-            setIsToggled(false);
-          }}
-          className="btn btn-primary"
-        >
+        <button onClick={() => toggle} className="btn btn-primary">
           Vote
         </button>
       </div>

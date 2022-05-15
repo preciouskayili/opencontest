@@ -1,4 +1,6 @@
-const Title = () => {
+import React from "react";
+
+const Title: React.FC = () => {
   return (
     <div className="container-fluid bg-dark rounded-5">
       <div className="card-body">
