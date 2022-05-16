@@ -4,7 +4,17 @@ import { FcAddImage } from "react-icons/fc";
 import { ToggleContext } from "../ToggleContext";
 import { AiOutlineClose } from "react-icons/ai";
 import Image from "next/image";
+import baseUrl from "../../utils/baseUrl";
+import swal from "sweetalert";
 
+const alertContent = (title: string, text: string, icon: string) => {
+  swal({
+    title: title,
+    text: text,
+    icon: icon,
+    timer: 2000,
+  });
+};
 // Form initial state
 const INITIAL_STATE = {
   contestName: "",
@@ -15,8 +25,8 @@ const INITIAL_STATE = {
 };
 
 const CreateContest: React.FC = () => {
-  const isToggled = useContext(ToggleContext);
-  const toggle = useContext(ToggleContext);
+  const toggleContext = useContext(ToggleContext);
+  console.log(toggleContext);
 
   const [formStep, setFormStep] = useState(0);
   const [formState, setFormState] = useState(INITIAL_STATE);
@@ -26,11 +36,32 @@ const CreateContest: React.FC = () => {
     setFormState((prevState) => ({ ...prevState, [name]: value }));
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    toggle;
 
-    const { name, value } = e.currentTarget;
+    const url = `${baseUrl}/contest/create`;
+
+    const { contestName, contestants, tags, desc, thumbnail } = formState;
+
+    const payload = { contestName, contestants, tags, desc, thumbnail };
+
+    fetch(url, {
+      method: "POST",
+      body: JSON.stringify(payload),
+    })
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error("Got a non-2xx response from API server.");
+        }
+        return res.json();
+      })
+      .then((data) => {
+        console.log(data);
+      })
+      .catch((err) => {
+        console.error(err);
+        alertContent("OOPS!", "Unable to post contest", "error");
+      });
   };
 
   const captureFile = (e: React.FormEvent<HTMLInputElement>) => {
@@ -49,7 +80,9 @@ const CreateContest: React.FC = () => {
     <>
       <div
         className={
-          isToggled ? "sidenav w-100 active shadow h-full pb-5" : "sidenav"
+          toggleContext?.isToggled
+            ? "sidenav w-100 active shadow h-full pb-5"
+            : "sidenav"
         }
       >
         <div className="container">
@@ -60,7 +93,7 @@ const CreateContest: React.FC = () => {
                 <i
                   className="fs-2 text-light mb-2 fs-5 ms-auto"
                   style={{ cursor: "pointer", alignItems: "center" }}
-                  onClick={() => toggle}
+                  onClick={() => toggleContext?.setIsToggled}
                 >
                   <AiOutlineClose />
                 </i>

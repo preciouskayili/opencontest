@@ -2,5 +2,5 @@
 
 export interface IToggle {
   isToggled: boolean;
-  toggle?: () => void;
+  setIsToggled?: () => void;
 }
