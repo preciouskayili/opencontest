@@ -15,6 +15,12 @@ const Navbar: React.FC = () => {
         }
       }
     });
+
+    let abortController = new AbortController();
+    // your async action is here
+    return () => {
+      abortController.abort();
+    };
   });
 
   return (

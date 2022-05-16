@@ -1,16 +1,10 @@
 import React, { Context, useContext, useState } from "react";
-import ipfsClient from "ipfs-http-client";
 import { BsArrowRight, BsArrowLeft } from "react-icons/bs";
 import { FcAddImage } from "react-icons/fc";
 import { ToggleContext } from "../ToggleContext";
 import { AiOutlineClose } from "react-icons/ai";
-import { Buffer } from "buffer";
+import Image from "next/image";
 
-const ipfs = ipfsClient({
-  host: "ipfs.infura.io",
-  port: 5001,
-  protocol: "https",
-});
 // Form initial state
 const INITIAL_STATE = {
   contestName: "",
@@ -18,7 +12,6 @@ const INITIAL_STATE = {
   tags: "",
   desc: "",
   thumbnail: "",
-  buffer: [],
 };
 
 const CreateContest: React.FC = () => {
@@ -38,18 +31,6 @@ const CreateContest: React.FC = () => {
     toggle;
 
     const { name, value } = e.currentTarget;
-    console.log(name, value);
-    ipfs.add(formState.buffer, (error: any, result: any) => {
-      console.log("IPFS result", result);
-
-      setFormState((prevState) => ({ ...prevState, thumbnail: result[0] }));
-      if (error) {
-        console.error(error);
-        return;
-      }
-
-      // Step 2: Add to database
-    });
   };
 
   const captureFile = (e: React.FormEvent<HTMLInputElement>) => {
@@ -58,16 +39,10 @@ const CreateContest: React.FC = () => {
     const { name, files } = e.currentTarget;
 
     const reader = new window.FileReader();
-    reader.readAsArrayBuffer(files![0]);
+    reader.readAsDataURL(files![0]);
 
     reader.onloadend = () => {
-      setFormState((prevState) => ({
-        ...prevState,
-        [name]: new Buffer.from(reader.result),
-      }));
-      console.log("====================================");
-      console.log(formState);
-      console.log("====================================");
+      setFormState((prevState) => ({ ...prevState, [name]: reader.result }));
     };
   };
   return (
@@ -192,15 +167,29 @@ const CreateContest: React.FC = () => {
                         }}
                       >
                         <h3 className="text-dark">Upload Thumbnail</h3>
-                        <span className="display-1">
-                          <FcAddImage />
-                        </span>
+                        <>
+                          {formState.thumbnail ? (
+                            <>
+                              <Image
+                                width="200"
+                                height="200"
+                                objectFit="contain"
+                                src={formState.thumbnail}
+                                alt="Uploaded image"
+                              />
+                            </>
+                          ) : (
+                            <span className="display-1">
+                              <FcAddImage />
+                            </span>
+                          )}
+                        </>
                         <input
-                          className="form-control w-25 mt-4"
+                          className="form-control w-50 mt-4"
                           type="file"
                           onInput={(e) => captureFile(e)}
-                          name="buffer"
-                          id="buffer"
+                          name="thumbnail"
+                          id="thumbnail"
                         />
                       </div>
                       <div className="d-flex mt-5">
