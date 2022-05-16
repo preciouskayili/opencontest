@@ -2,5 +2,5 @@
 
 export interface IToggle {
   isToggled: boolean;
-  setIsToggled?: () => void;
+  setIsToggled: Dispatch<SetStateAction<boolean>>;
 }

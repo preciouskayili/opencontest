@@ -3,7 +3,8 @@ import { ToggleContext } from "../ToggleContext";
 import Image from "next/image";
 
 const ProfileDetails = () => {
-  const toggle = useContext(ToggleContext);
+  const toggleContext = useContext(ToggleContext);
+
   return (
     <div className="mt-5">
       <div className="d-flex" style={{ justifyContent: "center" }}>
@@ -53,7 +54,7 @@ const ProfileDetails = () => {
         </div>
         <button
           className="btn btn-dark col-md-12 w-100"
-          onClick={() => toggle?.toggle}
+          onClick={() => toggleContext.setIsToggled(true)}
         >
           Start Contest
         </button>

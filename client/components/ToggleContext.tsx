@@ -3,20 +3,18 @@ import { IToggle } from "./@types/toggle";
 
 const defaultState = {
   isToggled: false,
-  setIsToggled: () => {
-    !defaultState.isToggled;
-    console.log(defaultState.isToggled);
-  },
+  setIsToggled: null,
 };
 
-export const ToggleContext = createContext<IToggle | null>(defaultState);
+export const ToggleContext = createContext<IToggle>(defaultState);
 
 export const ToggleProvider = (props: any) => {
+  const [isToggled, setIsToggled] = useState(false);
   return (
     <ToggleContext.Provider
       value={{
-        isToggled: defaultState.isToggled,
-        setIsToggled: defaultState.setIsToggled,
+        isToggled: isToggled,
+        setIsToggled: setIsToggled,
       }}
     >
       {props.children}
