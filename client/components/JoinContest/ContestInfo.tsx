@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { ToggleContext } from "../ToggleContext";
 
 const ContestInfo: React.FC = () => {
-  const toggle = useContext(ToggleContext);
+  const { isToggled, setIsToggled } = useContext(ToggleContext);
 
   return (
     <>
@@ -21,7 +21,7 @@ const ContestInfo: React.FC = () => {
         style={{ height: "15rem", overflow: "auto" }}
       >
         <div className="card-body">
-          <div className="result mt-3">
+          <div className="result">
             <small className="fw-bold text-dark">Leroy Sane (25%)</small>
             <div className="progress rounded" style={{ height: "10px" }}>
               <div
@@ -56,7 +56,10 @@ const ContestInfo: React.FC = () => {
             </div>
           </div>
         </div>
-        <button onClick={() => toggle} className="btn btn-primary">
+        <button
+          onClick={() => setIsToggled(!isToggled)}
+          className="btn btn-primary"
+        >
           Vote
         </button>
       </div>

@@ -25,8 +25,7 @@ const INITIAL_STATE = {
 };
 
 const CreateContest: React.FC = () => {
-  const toggleContext = useContext(ToggleContext);
-  console.log(toggleContext);
+  const { isToggled, setIsToggled } = useContext(ToggleContext);
 
   const [formStep, setFormStep] = useState(0);
   const [formState, setFormState] = useState(INITIAL_STATE);
@@ -80,9 +79,7 @@ const CreateContest: React.FC = () => {
     <>
       <div
         className={
-          toggleContext?.isToggled
-            ? "sidenav w-100 active shadow h-full pb-5"
-            : "sidenav"
+          isToggled ? "sidenav w-100 active shadow h-full pb-5" : "sidenav"
         }
       >
         <div className="container">
@@ -93,7 +90,7 @@ const CreateContest: React.FC = () => {
                 <i
                   className="fs-2 text-light mb-2 fs-5 ms-auto"
                   style={{ cursor: "pointer", alignItems: "center" }}
-                  onClick={() => toggleContext?.setIsToggled}
+                  onClick={() => setIsToggled(false)}
                 >
                   <AiOutlineClose />
                 </i>

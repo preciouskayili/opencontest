@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { AiOutlineLike } from "react-icons/ai";
 
@@ -6,10 +7,15 @@ const Contests = () => {
     <>
       <div className="col-lg-6 col-xl-4 col-md-4 col-sm-6 mt-1 mb-2">
         <div className="card">
-          <img
+          <Image
             src="/images/nft.webp"
             alt="Card image"
-            className="img-responsive w-100 card-img-top"
+            className="img-responsive card-img-top"
+            width="100%"
+            height="225"
+            objectFit="cover"
+            loading="lazy"
+            unoptimized={true}
           />
 
           <div className="card-body">

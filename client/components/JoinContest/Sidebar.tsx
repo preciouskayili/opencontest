@@ -2,8 +2,7 @@ import React, { useContext } from "react";
 import { ToggleContext } from "../ToggleContext";
 
 const Sidebar: React.FC = () => {
-  const isToggled = useContext(ToggleContext);
-  const toggle = useContext(ToggleContext);
+  const { isToggled, setIsToggled } = useContext(ToggleContext);
 
   return (
     <>
@@ -15,7 +14,7 @@ const Sidebar: React.FC = () => {
               <i
                 className="fas fa-times fs-2 text-light mb-3 ms-auto"
                 style={{ cursor: "pointer", alignItems: "center" }}
-                onClick={() => toggle}
+                onClick={() => setIsToggled(false)}
               ></i>
             </div>
           </div>
@@ -42,28 +41,12 @@ const Sidebar: React.FC = () => {
             </button>
           </div>
 
-          <div className="card rounded-5 bg-light mb-4">
-            <div className="contestant px-2 py-1">
-              <div className="d-flex" style={{ alignItems: "center" }}>
-                <div className="content ms-3 mt-2 my-auto">
-                  <p className="fw-bold text-dark mt-0">
-                    Precious Solomon Kayili
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div className="contestant px-2 py-1">
-              <div className="d-flex" style={{ alignItems: "center" }}>
-                <div className="content ms-3 mt-2 my-auto">
-                  <p className="fw-bold text-dark mt-0">Stacy Benedict</p>
-                </div>
-              </div>
-            </div>
-            <div className="contestant px-2 py-1">
-              <div className="d-flex" style={{ alignItems: "center" }}>
-                <div className="content ms-3 mt-2 my-auto">
-                  <p className="fw-bold text-dark mt-0">Leroy Sane</p>
-                </div>
+          <div className="card rounded-3 bg-light mb-4">
+            <div className="contestant">
+              <div className="content ms-3 mt-2 my-auto">
+                <p className="fw-bold text-dark mt-0">
+                  Precious Solomon Kayili
+                </p>
               </div>
             </div>
           </div>
