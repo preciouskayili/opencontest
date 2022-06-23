@@ -1,20 +1,23 @@
-import React, { Context, useContext, useState } from "react";
+import React, { useContext, useState } from "react";
 import { BsArrowRight, BsArrowLeft } from "react-icons/bs";
 import { FcAddImage } from "react-icons/fc";
 import { ToggleContext } from "../ToggleContext";
-import { AiOutlineClose } from "react-icons/ai";
+import { AiOutlineClose, AiOutlinePlus } from "react-icons/ai";
 import Image from "next/image";
 import baseUrl from "../../utils/baseUrl";
-import swal from "sweetalert";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
 
-const alertContent = (title: string, text: string, icon: string) => {
-  swal({
-    title: title,
-    text: text,
-    icon: icon,
-    timer: 2000,
-  });
-};
+
+const MySwal = withReactContent(Swal);
+const Toast = Swal.mixin({
+  toast: true,
+  position: "top",
+  timer: 3000,
+  timerProgressBar: true,
+  showConfirmButton: false,
+});
+
 // Form initial state
 const INITIAL_STATE = {
   contestName: "",
@@ -29,10 +32,27 @@ const CreateContest: React.FC = () => {
 
   const [formStep, setFormStep] = useState(0);
   const [formState, setFormState] = useState(INITIAL_STATE);
+  const [tagToggle, setTagToggle] = useState(false);
 
   const handleChange = (e: React.FormEvent<HTMLInputElement>): void => {
     const { name, value } = e.currentTarget;
     setFormState((prevState) => ({ ...prevState, [name]: value }));
+  };
+
+  const handlePaginate = (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ): void => {
+    if (
+      !formState.contestName ||
+      !formState.contestants ||
+      !formState.desc ||
+      !formState.tags
+    ) {
+      Toast.fire("Fill in form fields", "", "error");
+      return;
+    }
+
+    setFormStep(1);
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -46,6 +66,7 @@ const CreateContest: React.FC = () => {
 
     fetch(url, {
       method: "POST",
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload),
     })
       .then((res) => {
@@ -55,11 +76,19 @@ const CreateContest: React.FC = () => {
         return res.json();
       })
       .then((data) => {
-        console.log(data);
+        Toast.fire("Notification", "Upload successful", "success");
+        setIsToggled(!isToggled);
       })
       .catch((err) => {
+        MySwal.fire({
+          title: "OOPS!",
+          text: "Unable to upload post",
+          icon: "error",
+          timer: 2000,
+          timerProgressBar: true,
+          showConfirmButton: false,
+        });
         console.error(err);
-        alertContent("OOPS!", "Unable to post contest", "error");
       });
   };
 
@@ -76,10 +105,10 @@ const CreateContest: React.FC = () => {
     };
   };
   return (
-    <>
+    <div className="container">
       <div
         className={
-          isToggled ? "sidenav w-100 active shadow h-full pb-5" : "sidenav"
+          isToggled ? "sidenav w-100 mx-auto active shadow pb-5" : "sidenav"
         }
       >
         <div className="container">
@@ -97,7 +126,7 @@ const CreateContest: React.FC = () => {
               </div>
             </div>
 
-            <div className="card rounded-5 bg-light mt-5">
+            <div className="card rounded-5 bg-light mt-2">
               <div className="card-body">
                 <form
                   className="mt-4"
@@ -149,14 +178,57 @@ const CreateContest: React.FC = () => {
                         >
                           Tags
                         </label>
-                        <input
+                        <div
                           id="tags"
-                          className="form-control user-form border-0"
-                          name="tags"
-                          onChange={(e) => handleChange(e)}
-                          value={formState.tags}
-                          style={{ minHeight: "8rem" }}
-                        ></input>
+                          onClick={() => setTagToggle(true)}
+                          onBlur={() => setTagToggle(false)}
+                          style={{ cursor: "text" }}
+                          className="form-control user-form border-0 tag-input"
+                          placeholder="Hello"
+                        ></div>
+                        {tagToggle && (
+                          <div className="card mt-1">
+                            <p
+                              className="fw-bold text-primary bg-light pb-2"
+                              style={{
+                                borderBottom: "1px solid #a5c7ff",
+                                cursor: "pointer",
+                              }}
+                            >
+                              <div className="pt-3 ps-2">
+                                <AiOutlinePlus
+                                  className="me-2"
+                                  style={{ marginTop: "-3px" }}
+                                />
+                                Create Tag
+                              </div>
+                            </p>
+
+                            <div className="ps-3 py-1 pb-3">
+                              <div className="tags">
+                                <button className="tagcloud-dark">
+                                  OpenVoting
+                                </button>
+
+                                <button className="tagcloud-dark">Cloud</button>
+
+                                <button className="tagcloud-dark">
+                                  codespace
+                                </button>
+
+                                <button className="tagcloud-dark">
+                                  technology
+                                </button>
+
+                                <button className="tagcloud-dark">
+                                  openvoting
+                                </button>
+
+                                <button className="tagcloud-dark">NFTS</button>
+                              </div>
+                            </div>
+                          </div>
+                        )}
                       </div>
 
                       <div className="col-md-6 mb-4">
@@ -172,7 +244,6 @@ const CreateContest: React.FC = () => {
                           onChange={(e) => handleChange(e)}
                           value={formState.desc}
                           className="form-control user-form border-0"
-                          style={{ minHeight: "8rem" }}
                         ></input>
                       </div>
 
@@ -180,7 +251,7 @@ const CreateContest: React.FC = () => {
                         <button
                           className="btn btn-lg btn-dark fs-6 ms-auto"
                           type="button"
-                          onClick={() => setFormStep(formStep + 1)}
+                          onClick={(e) => handlePaginate(e)}
                         >
                           <BsArrowRight />
                         </button>
@@ -202,7 +273,7 @@ const CreateContest: React.FC = () => {
                             <>
                               <Image
                                 width="200"
-                                height="200"
+                                height="225rem"
                                 objectFit="contain"
                                 src={formState.thumbnail}
                                 alt="Uploaded image"
@@ -245,7 +316,7 @@ const CreateContest: React.FC = () => {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

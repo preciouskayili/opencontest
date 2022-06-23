@@ -39,7 +39,7 @@ const Hero = () => {
               The Open <br /> Voting System
             </h1>
             <div className="pt-4">
-              <Link href="/sign-up">
+              <Link href="/signup">
                 <a className="btn btn-lg btn-primary fs-6">Get Started</a>
               </Link>
               <Link href="/explore">

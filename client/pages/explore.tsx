@@ -6,7 +6,7 @@ const explore = () => {
     <>
       <Navbar />
 
-      <div className="mt-5">
+      <div className="mt-5 container-fluid">
         <ContestCard />
       </div>
       <span className="spinner-border text-primary mt-5 d-flex mx-auto"></span>

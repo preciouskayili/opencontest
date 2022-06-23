@@ -1,3 +1,4 @@
+import { useContext } from "react";
 import { useRouter } from "next/router";
 import ContestInfo from "../../../components/JoinContest/ContestInfo";
 import Navbar from "../../../components/JoinContest/Navbar";
@@ -8,7 +9,6 @@ import { ToggleProvider } from "../../../components/ToggleContext";
 const Contest = () => {
   const router = useRouter();
   const { id } = router.query;
-
   return (
     <div className="bg-light" style={{ minHeight: "100vh" }}>
       <Navbar />

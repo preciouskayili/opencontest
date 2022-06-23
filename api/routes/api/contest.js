@@ -4,7 +4,7 @@ const router = express.Router();
 
 require("dotenv/config");
 
-// User model
+// Contest model
 const Contest = require("../../models/Contest");
 
 // @route 	POST api/contest/create
@@ -12,7 +12,7 @@ const Contest = require("../../models/Contest");
 // @access	Public
 router.post("/create", (req, res) => {
   const { contestName, contestants, tags, desc, thumbnail } = req.body;
-
+  console.log(req.body);
   // Validation
   if (!contestName || !contestants || !tags || !desc || !thumbnail)
     return res.status(400).json({ msg: "Please enter all fields" });

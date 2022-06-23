@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 const Navbar: React.FC = () => {
-  let navClass: string =
-    "navbar container-fluid navbar-expand-lg shadow-none sticky-top";
+  let navClass: string = "navbar container-fluid navbar-expand-lg sticky-top";
 
   const [sticky, setSticky] = useState(false);
   useEffect(() => {
+    let abortController = new AbortController();
+
     document.addEventListener("scroll", () => {
       if (window !== undefined) {
         if (window.scrollY > 5) {
@@ -16,8 +17,6 @@ const Navbar: React.FC = () => {
       }
     });
 
-    let abortController = new AbortController();
-    // your async action is here
     return () => {
       abortController.abort();
     };
@@ -29,8 +28,8 @@ const Navbar: React.FC = () => {
       <nav
         className={
           sticky
-            ? `${navClass} navbar-light navbar-lighten nav-blur`
-            : `${navClass} navbar-dark bg-transparent`
+            ? `${navClass} navbar-dark navbar-darken nav-blur shadow-lg`
+            : `${navClass} navbar-dark bg-transparent shadow-none`
         }
       >
         {/* Container wrapper */}

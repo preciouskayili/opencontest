@@ -19,7 +19,7 @@ const ProfileDetails = () => {
         />
       </div>
 
-      <p className="text-center fs-4 fw-bold text-dark mt-5">
+      <p className="text-center fs-4 fw-bold text-dark mt-3 mb-5">
         Precious Solomon Kayili
       </p>
 
