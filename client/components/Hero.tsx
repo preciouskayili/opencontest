@@ -34,7 +34,10 @@ const Hero = () => {
             <h5 className="fw-bold fs-3 text-gradient">
               Create, Compete, Participate
             </h5>
-            <hr className="w-25 bg-light rounded-5" style={{ height: "5px" }} />
+            <hr
+              className="w-25 bg-light rounded-5"
+              style={{ height: "5px", marginTop: "-1px" }}
+            />
             <h1 className="display-1 fw-bold text-white pt-4 text-gradient">
               The Open <br /> Voting System
             </h1>
@@ -50,13 +53,21 @@ const Hero = () => {
             </div>
           </div>
           <div
-            className="col-lg-5 card-footer"
+            className="col-lg-5"
             style={{
-              background: "url(/images/pc.png)",
-              borderRadius: "1rem",
-              minHeight: "80vh",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              userSelect: "none",
             }}
-          ></div>
+          >
+            <img
+              style={{ rotate: "180" }}
+              src="/images/hero-side.png"
+              className="img-responsive mw-100"
+              alt="Cover image"
+            />
+          </div>
         </div>
       </div>
     </header>

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Router from "next/router";
 import baseUrl from "../utils/baseUrl";
 import Link from "next/link";
@@ -23,6 +23,7 @@ const INITIAL_STATE = {
 const SignUp = () => {
   const [formState, setFormState] = useState(INITIAL_STATE);
   const [invalidPassword, setInvalidPassword] = useState(false);
+  const [progress, setProgress] = useState(0);
 
   const handleChange = (e: React.FormEvent<HTMLInputElement>): void => {
     const { name, value } = e.currentTarget;
@@ -150,17 +151,16 @@ const SignUp = () => {
             }}
           >
             <div className="p-5">
-              <h1 className="fw-bold text-white display-1 text-gradient">
-                Open <br /> Contest
+              <hr
+                className="w-25 bg-light rounded-5"
+                style={{ height: "5px", marginTop: "-1px" }}
+              />
+              <h5 className="fw-bold fs-3 text-gradient">
+                Create, Compete, Participate
+              </h5>
+              <h1 className="display-1 fw-bold text-white pt-4 text-gradient">
+                The Open <br /> Voting System
               </h1>
-              <p className="text-light">
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Rerum
-                quae tempore dolore eum earum aliquam reprehenderit odit nostrum
-                consequuntur! Necessitatibus ab ipsa quibusdam. Debitis, tempore
-                molestiae nobis quod commodi sunt molestias alias, quidem, error
-                sed vel nostrum nulla! Autem maxime, corrupti eveniet
-                exercitationem similique qui sed id rem! Fugiat, dolorem.
-              </p>
             </div>
 
             <div className="mt-3 pt-2 p-5">
