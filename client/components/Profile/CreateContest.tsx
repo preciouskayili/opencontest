@@ -3,11 +3,11 @@ import { BsArrowRight, BsArrowLeft } from "react-icons/bs";
 import { FcAddImage } from "react-icons/fc";
 import { ToggleContext } from "../ToggleContext";
 import { AiOutlineClose, AiOutlinePlus } from "react-icons/ai";
-import Image from "next/image";
-import baseUrl from "../../utils/baseUrl";
-import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
-
+import baseUrl from "../../utils/baseUrl";
+import Image from "next/image";
+import axios from "axios";
+import Swal from "sweetalert2";
 
 const MySwal = withReactContent(Swal);
 const Toast = Swal.mixin({
@@ -29,7 +29,6 @@ const INITIAL_STATE = {
 
 const CreateContest: React.FC = () => {
   const { isToggled, setIsToggled } = useContext(ToggleContext);
-
   const [formStep, setFormStep] = useState(0);
   const [formState, setFormState] = useState(INITIAL_STATE);
   const [tagToggle, setTagToggle] = useState(false);
@@ -51,45 +50,27 @@ const CreateContest: React.FC = () => {
       Toast.fire("Fill in form fields", "", "error");
       return;
     }
-
     setFormStep(1);
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
-    const url = `${baseUrl}/contest/create`;
-
-    const { contestName, contestants, tags, desc, thumbnail } = formState;
-
-    const payload = { contestName, contestants, tags, desc, thumbnail };
-
-    fetch(url, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload),
-    })
-      .then((res) => {
-        if (!res.ok) {
-          throw new Error("Got a non-2xx response from API server.");
-        }
-        return res.json();
-      })
-      .then((data) => {
-        Toast.fire("Notification", "Upload successful", "success");
-        setIsToggled(!isToggled);
-      })
-      .catch((err) => {
-        MySwal.fire({
-          title: "OOPS!",
-          text: "Unable to upload post",
-          icon: "error",
-          timer: 2000,
-          timerProgressBar: true,
-          showConfirmButton: false,
-        });
-        console.error(err);
+    try {
+      const url = `${baseUrl}/contest/create`;
+      const { contestName, contestants, tags, desc, thumbnail } = formState;
+      const payload = { contestName, contestants, tags, desc, thumbnail };
+      await axios.post(url, payload);
+    } catch (err) {
+      MySwal.fire({
+        title: "OOPS!",
+        text: "Unable to upload post",
+        icon: "error",
+        timer: 2000,
+        timerProgressBar: true,
+        showConfirmButton: false,
       });
+      console.error(err);
+    }
   };
 
   const captureFile = (e: React.FormEvent<HTMLInputElement>) => {

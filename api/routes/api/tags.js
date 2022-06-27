@@ -1,6 +1,6 @@
 const express = require("express");
-
 const router = express.Router();
+const auth = require("../../middleware/auth");
 require("dotenv/config");
 
 // Tag Model
@@ -9,7 +9,7 @@ const Tags = require("../../models/Tags");
 // @route		POST api/tags/create
 // @desc		Create new tags
 // @access	Public
-router.post("/create", (req, res) => {
+router.post("/create", auth, (req, res) => {
   const { tags } = req.body;
 
   // Validation
@@ -36,7 +36,7 @@ router.post("/create", (req, res) => {
 // @route   GET api/tags/:tag
 // @desc    Get all tags with tag name
 // @access  Public
-router.post("/:tag", (req, res) => {
+router.get("/:tag", (req, res) => {
   const { tag } = req.params;
 
   // Validation

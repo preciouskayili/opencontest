@@ -1,6 +1,6 @@
 const express = require("express");
-
 const router = express.Router();
+const auth = require("../../middleware/auth");
 
 require("dotenv/config");
 
@@ -9,8 +9,8 @@ const Contest = require("../../models/Contest");
 
 // @route 	POST api/contest/create
 // @desc		Create new contests
-// @access	Public
-router.post("/create", (req, res) => {
+// @access	Private
+router.post("/create", auth, (req, res) => {
   const { contestName, contestants, tags, desc, thumbnail } = req.body;
   console.log(req.body);
   // Validation
@@ -41,6 +41,15 @@ router.get("/", (req, res) => {
     .catch((err) => {
       res.status(500).json({ msg: "Internal server error" });
     });
+});
+
+// @route   DELETE api/contest
+// @desc    Delete a contest
+// @access  Private
+router.delete("/:id", auth, (req, res) => {
+  Contest.findById(req.params.id)
+    .then((contest) => contest.remove().then(() => res.json({ success: true })))
+    .catch((err) => res.status(404).json({ success: false }));
 });
 
 module.exports = router;

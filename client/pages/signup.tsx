@@ -1,5 +1,5 @@
-import { useState, useEffect } from "react";
-import Router from "next/router";
+import { useState } from "react";
+import { useRouter } from "next/router";
 import baseUrl from "../utils/baseUrl";
 import Link from "next/link";
 import Swal from "sweetalert2";
@@ -21,9 +21,9 @@ const INITIAL_STATE = {
 };
 
 const SignUp = () => {
+  const router = useRouter();
   const [formState, setFormState] = useState(INITIAL_STATE);
   const [invalidPassword, setInvalidPassword] = useState(false);
-  const [progress, setProgress] = useState(0);
 
   const handleChange = (e: React.FormEvent<HTMLInputElement>): void => {
     const { name, value } = e.currentTarget;
@@ -36,7 +36,7 @@ const SignUp = () => {
     }
 
     e.preventDefault();
-    const url = `${baseUrl}/users`;
+    const url = `${baseUrl}/user`;
 
     const { name, email, password, repeatPassword } = formState;
     const payload = { name, email, password };
@@ -59,10 +59,11 @@ const SignUp = () => {
       })
       .then((data) => {
         console.log(data);
-        Router.push("/explore");
+        router.push("/explore");
       })
       .catch((err) => {
         Toast.fire("An error occurred while creating account", "", "error");
+        console.log(err);
       });
   };
   return (
